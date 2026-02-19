@@ -39,10 +39,10 @@ def generarLlave(clavePreeliminar: str, mensaje: str) -> str:
     index = 0
     for caracter in mensaje:
         if clavePreeliminar[index % len(clavePreeliminar)] == " ":
-            llave += "a"
+            llave += " "
         else:
             llave += clavePreeliminar[index % len(clavePreeliminar)]
-            index += 1
+        index += 1
     return llave
 
 if __name__ == "__main__":

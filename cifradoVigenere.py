@@ -32,14 +32,14 @@ def descifrar(mensaje: str, llave: str) -> str:
         index += 1
     return resultado
 
-def generarLlave(mensaje: str, clavePreeliminar: str) -> str:
+def generarLlave(clavePreeliminar: str, mensaje: str) -> str:
     """Genera una llave para el cifrado Vigenere
     la llave se repite hasta alcanzar la longitud del mensaje"""
     llave = ""
     index = 0
     for caracter in mensaje:
-        if caracter == " ":
-            llave += " "
+        if clavePreeliminar[index % len(clavePreeliminar)] == " ":
+            llave += "a"
         else:
             llave += clavePreeliminar[index % len(clavePreeliminar)]
             index += 1
@@ -48,7 +48,7 @@ def generarLlave(mensaje: str, clavePreeliminar: str) -> str:
 if __name__ == "__main__":
     mensaje = input("Ingrese el mensaje a cifrar: ")
     clave = input("Ingrese la clave para el cifrado: ")
-    llave = generarLlave(mensaje, clave)
+    llave = generarLlave(clave, mensaje)
     print(f"Llave generada: {llave}")
     mensaje_cifrado = cifrar(mensaje, llave)
     print(f"Mensaje cifrado: {mensaje_cifrado}")

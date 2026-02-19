@@ -37,9 +37,10 @@ def generarLlave(clavePreeliminar: str, mensaje: str) -> str:
     la llave se repite hasta alcanzar la longitud del mensaje"""
     llave = ""
     index = 0
+    clavePreeliminar = clavePreeliminar.replace(" ", "")
     for caracter in mensaje:
         if clavePreeliminar[index % len(clavePreeliminar)] == " ":
-            llave += "d"
+            llave += " "
         else:
             llave += clavePreeliminar[index % len(clavePreeliminar)]
         index += 1

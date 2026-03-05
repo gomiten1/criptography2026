@@ -50,9 +50,9 @@ def FormatMessage(message):
         b = message[i + 1]
 
         if a == "j":
-            a = i
+            a = "i"
         if b == "j":
-            b = i
+            b = "i"
         if a == b:
             b = "x"
 
@@ -61,7 +61,7 @@ def FormatMessage(message):
     return fmessage
 
 
-def PlayfairCypher(alphabet, matrix, message):
+def PlayfairCypher(alphabet, matrix, message, mode=1):
 
     cmessage = ""
 
@@ -70,14 +70,19 @@ def PlayfairCypher(alphabet, matrix, message):
         b = digraph[1]
 
         # print(f"{a}, {b} ---> ", end="")
-        # print(f"({alphabet[a][0]}, {alphabet[a][1]}), ({alphabet[b][0]}, {alphabet[b][1]}) ---> ", end="")
+        # print(
+        #     f"({alphabet[a][0]}, {alphabet[a][1]}), ({alphabet[b][0]}, {
+        #         alphabet[b][1]
+        #     }) ---> ",
+        #     end="",
+        # )
 
         if alphabet[a][0] == alphabet[b][0]:
-            a = matrix[(alphabet[a][1] + 1) % 5][alphabet[a][0]]
-            b = matrix[(alphabet[b][1] + 1) % 5][alphabet[b][0]]
+            a = matrix[(alphabet[a][1] + mode) % 5][alphabet[a][0]]
+            b = matrix[(alphabet[b][1] + mode) % 5][alphabet[b][0]]
         elif alphabet[a][1] == alphabet[b][1]:
-            a = matrix[alphabet[a][1]][(alphabet[a][0] + 1) % 5]
-            b = matrix[alphabet[b][1]][(alphabet[b][0] + 1) % 5]
+            a = matrix[alphabet[a][1]][(alphabet[a][0] + mode) % 5]
+            b = matrix[alphabet[b][1]][(alphabet[b][0] + mode) % 5]
         else:
             aux = matrix[alphabet[a][1]][alphabet[b][0]]
             b = matrix[alphabet[b][1]][alphabet[a][0]]
@@ -90,12 +95,24 @@ def PlayfairCypher(alphabet, matrix, message):
     return cmessage
 
 
-keyword = input("Ingrese la palabra clave: ").lower()
-message = input("Ingrese el mensaje: ").lower()
+mode = input("Ingrese 0 para descifrar, 1 para cifrar: ")
 
-alphabet, matrix = GenMatrix(keyword)
-message = FormatMessage(message)
-cmessage = PlayfairCypher(alphabet, matrix, message)
+if int(mode):
+    keyword = input("Ingrese la palabra clave: ").lower()
+    message = input("Ingrese el mensaje: ").lower()
 
-print(f"El mensaje cifrado es: {cmessage}")
+    alphabet, matrix = GenMatrix(keyword)
+    message = FormatMessage(message)
+    cmessage = PlayfairCypher(alphabet, matrix, message)
 
+    print(f"El mensaje cifrado es: {cmessage}")
+
+else:
+    keyword = input("Ingrese la palabra clave: ").lower()
+    cmessage = input("Ingrese el mensaje cifrado: ").lower()
+
+    alphabet, matrix = GenMatrix(keyword)
+    cmessage = FormatMessage(cmessage)
+    message = PlayfairCypher(alphabet, matrix, cmessage, -1)
+
+    print(f"El mensaje cifrado es: {message}")

@@ -9,6 +9,7 @@ def gcd(a, b):
         return a
     return gcd(b, a % b)
 
+# Algoritmo de Euclides extendido para encontrar el inverso multiplicativo
 def extended_euclides(a, b):
     if a == 0:
         return b, 0, 1
@@ -17,11 +18,13 @@ def extended_euclides(a, b):
     y = x1
     return gcd, x, y
 
+
+# Obtención de inverso
 def multiplicative_inverse(n, m):
     gcd, x, _ = extended_euclides(n, m)
     return x % m
 
-
+# Flujo principal
 if __name__ == "__main__":
     print("Encuentra el inverso multiplicativo de n módulo m")
     print("La forma es nx == 1 (mod m)")
